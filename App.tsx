@@ -6,63 +6,27 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import StartGameScreen from './src/screens/StartGameScreen';
+import LinearGradient from 'react-native-linear-gradient';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App(): React.JSX.Element {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+  <LinearGradient colors={['#4e0329', '#ddb52f']} style={styles.rootScreen}>
+    <StartGameScreen />
+  </LinearGradient >
   );
 }
 
-function App(): React.JSX.Element {
-
-  return <StartGameScreen />;
-}
-
 const styles = StyleSheet.create({
-  
+  rootScreen:{
+    flex:1,
+    backgroundColor: '#ddb52f',
+  },
 });
 
 export default App;
