@@ -8,15 +8,17 @@
 import React, { useState } from 'react';
 import {
   ImageBackground,
+  SafeAreaView,
   StyleSheet,
 } from 'react-native';
 
 import StartGameScreen from './src/screens/StartGameScreen';
 import LinearGradient from 'react-native-linear-gradient';
 import GameScreen from './src/screens/GameScreen';
+import Colors from './src/constants/colors';
 
 function App(): React.JSX.Element {
-  const [userNumber, setUserNumber] = useState();
+  const [userNumber, setUserNumber] = useState(undefined);
 
   function pickedNumberHandler(pickedNumber: any){
     setUserNumber(pickedNumber);
@@ -24,17 +26,19 @@ function App(): React.JSX.Element {
 
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
 
-  if(userNumber) screen = <GameScreen />
+  if(userNumber) { screen = <GameScreen /> }
 
   return (
-    <LinearGradient colors={['#4e0329', '#ddb52f']} style={styles.rootScreen}>
+    <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
       <ImageBackground 
         source={require('./assets/images/background.png')} 
         resizeMode="cover"
         style={styles.rootScreen}
         imageStyle={styles.backgroundImage}>
 
-        {screen}
+        <SafeAreaView>
+          {screen}
+        </SafeAreaView>
 
       </ImageBackground>
     </LinearGradient >
