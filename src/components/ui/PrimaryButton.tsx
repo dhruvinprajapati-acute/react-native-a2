@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Colors from "../constants/colors";
+import Colors from "../../constants/colors";
 
 function PrimaryButton({children, onPress}){
     return(
