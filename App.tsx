@@ -36,10 +36,7 @@ function App(): React.JSX.Element {
     screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} /> 
   }
 
-  if(gameIsOver && userNumber) { 
-    console.log('game over screen call');
-    console.log(gameIsOver)
-    console.log(userNumber)
+  if(gameIsOver && userNumber) {
     screen = <GameOverScreen /> 
   }
 
