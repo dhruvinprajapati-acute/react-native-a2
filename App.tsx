@@ -20,17 +20,29 @@ import GameOverScreen from './src/screens/GameOverScreen';
 
 function App(): React.JSX.Element {
   const [userNumber, setUserNumber] = useState(undefined);
-  const [gameIsOver, setGameIsOver] = useState(true);
+  const [gameIsOver, setGameIsOver] = useState(false);
 
   function pickedNumberHandler(pickedNumber: any){
     setUserNumber(pickedNumber);
   }
 
+  function gameOverHandler(){
+    setGameIsOver(true);
+  }
+
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
 
-  if(userNumber) { screen = <GameScreen userNumber={userNumber} /> }
+  if(userNumber) { 
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} /> 
+  }
 
-  if(gameIsOver) { screen = <GameOverScreen /> }
+  if(gameIsOver && userNumber) { 
+    console.log('game over screen call');
+    console.log(gameIsOver)
+    console.log(userNumber)
+    screen = <GameOverScreen /> 
+  }
+
 
   return (
     <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>

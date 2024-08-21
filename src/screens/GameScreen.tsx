@@ -16,17 +16,18 @@ function generateRandomBetween(min, max, exclude){
 }
 
 let minBoundry = 1;
-let maxBoundry = 99;
+let maxBoundry = 100;
 
-function GameScreen({userNumber}){
-    const initialGuess = generateRandomBetween(minBoundry, maxBoundry, userNumber);
+function GameScreen({userNumber, onGameOver}){
+    const initialGuess = generateRandomBetween(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
     useEffect(() => {
         if(currentGuess === userNumber){
-            
+            onGameOver();
+            console.log('ongameover')
         }
-    }, []);
+    }, [currentGuess, userNumber, onGameOver]);
 
     function nextGuessHandler(direction){ // direction => 'lower', 'greater'
         if((direction === 'lower' && currentGuess < userNumber) || (direction === 'greater' && currentGuess > userNumber)){
