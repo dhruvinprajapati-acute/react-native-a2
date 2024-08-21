@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         flex:1
-    }
+    },
 });
 
 export default StartGameScreen;
