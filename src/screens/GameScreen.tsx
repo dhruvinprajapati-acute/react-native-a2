@@ -1,11 +1,12 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import Title from "../components/ui/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "../components/game/NumberContaoner";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
+import GuessLogItem from "../components/game/GuessLogItem";
 
 function generateRandomBetween(min, max, exclude){
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -23,10 +24,13 @@ let maxBoundry = 100;
 function GameScreen({userNumber, onGameOver}){
     const initialGuess = generateRandomBetween(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [guessRounds, setGuessRounds] = useState([initialGuess]);
+
+    const guessRoundsListLength = guessRounds.length;
 
     useEffect(() => {
         if(currentGuess === userNumber){
-            onGameOver();
+            onGameOver(guessRoundsListLength);
         }
     }, [currentGuess, userNumber, onGameOver]);
 
@@ -51,6 +55,7 @@ function GameScreen({userNumber, onGameOver}){
         }
         const newRndNumber = generateRandomBetween(minBoundry, maxBoundry, currentGuess);
         setCurrentGuess(newRndNumber);
+        setGuessRounds(prevGuessRounds => [newRndNumber, ...prevGuessRounds])
     }
 
     return(
@@ -68,6 +73,12 @@ function GameScreen({userNumber, onGameOver}){
                     </View>
                 </View>
             </Card>
+            <View style={styles.listContainer}>
+                <FlatList 
+                    data={guessRounds} 
+                    keyExtractor={(item) => item} 
+                    renderItem={(itemData) => <GuessLogItem roundNumber={guessRoundsListLength - itemData.index} guess={itemData.item} />} />
+            </View>
         </View>
     );
 }
@@ -94,6 +105,9 @@ const styles = StyleSheet.create({
     buttonContainer:{
         flex:1
     },
+    listContainer: {
+        // padding: 16,
+    }
 });
 
 export default GameScreen;
