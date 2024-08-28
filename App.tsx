@@ -19,8 +19,9 @@ import Colors from './src/constants/colors';
 import GameOverScreen from './src/screens/GameOverScreen';
 
 function App(): React.JSX.Element {
-  const [userNumber, setUserNumber] = useState(undefined);
+  const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(false);
+  const [gusseRounds, setGusseRounds] = useState(0)
 
   function pickedNumberHandler(pickedNumber: any){
     setUserNumber(pickedNumber);
@@ -30,6 +31,12 @@ function App(): React.JSX.Element {
     setGameIsOver(true);
   }
 
+  function startNewGameHandler(){
+    setUserNumber(null),
+    setGusseRounds(0),
+    setGameIsOver(false)
+  }
+
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
 
   if(userNumber) { 
@@ -37,7 +44,7 @@ function App(): React.JSX.Element {
   }
 
   if(gameIsOver && userNumber) {
-    screen = <GameOverScreen /> 
+    screen = <GameOverScreen roundsNumber={gusseRounds} userNumber={userNumber} onStartNewGame={startNewGameHandler} /> 
   }
 
 

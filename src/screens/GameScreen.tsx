@@ -30,6 +30,11 @@ function GameScreen({userNumber, onGameOver}){
         }
     }, [currentGuess, userNumber, onGameOver]);
 
+    useEffect(() => {
+        minBoundry = 1;
+        maxBoundry =100;
+    }, []);
+
     function nextGuessHandler(direction){ // direction => 'lower', 'greater'
         if((direction === 'lower' && currentGuess < userNumber) || (direction === 'greater' && currentGuess > userNumber)){
             Alert.alert(
